@@ -8,14 +8,14 @@ export const DeviceInfo = () => {
         return device;
       })
       .then(device => device.gatt.connect())
-      .then(server => {
+      .then(async server => {
         // Getting Battery Service…
-        console.warn('battery_service');
+        console.warn('battery_service', await server.getPrimaryService('battery_service'));
         return server.getPrimaryService('battery_service');
       })
-      .then(service => {
+      .then(async service => {
         // Getting Battery Level Characteristic…
-        console.warn('battery_level');
+        console.warn('battery_level', await service.getCharacteristic('battery_level'));
         return service.getCharacteristic('battery_level');
       })
       .then(characteristic => {
